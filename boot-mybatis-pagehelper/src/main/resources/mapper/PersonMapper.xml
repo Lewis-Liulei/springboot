@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liulei.study.xmlbatisboot.dao.PersonMapper">
+    <select id="getPersonById" resultType="person">
+    select * from person where id = #{id}
+  </select>
+    <insert id="insertPerson" parameterType="person">
+        insert into person values (#{id},#{name},#{address},#{age})
+    </insert>
+    <select id="queryPerson" resultType="person" >
+
+        select * from person
+    </select>
+</mapper>

@@ -1,0 +1,49 @@
+#
+spring:
+  datasource:
+     type: com.alibaba.druid.pool.DruidDataSource
+     url: jdbc:mysql://127.0.0.1:3306/test_db?useUnicode=true&characterEncoding=utf8
+     username: root
+     password: root
+     driver-class-name: com.mysql.jdbc.Driver
+     initialSize: 1
+     minIdle: 1
+     maxActive: 200
+     maxWait: 60000
+     timeBetweenEvictionRunsMillis: 60000
+     minEvictableIdleTimeMillis: 300000
+     validationQuery: SELECT 'x'
+     testWhileIdle: true
+     testOnBorrow: false
+     testOnReturn: false
+     poolPreparedStatements: false
+     maxPoolPreparedStatementPerConnectionSize: 20
+     filters: stat,log4j,wall
+     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+     useGlobalDataSourceStat: true
+  datasource2:
+       type: com.alibaba.druid.pool.DruidDataSource
+       url: jdbc:mysql://127.0.0.1:3306/db_test3?useUnicode=true&characterEncoding=utf8
+       username: root
+       password: root
+       driver-class-name: com.mysql.jdbc.Driver
+       initialSize: 1
+       minIdle: 1
+       maxActive: 200
+       maxWait: 60000
+       timeBetweenEvictionRunsMillis: 60000
+       minEvictableIdleTimeMillis: 300000
+       validationQuery: SELECT 'x'
+       testWhileIdle: true
+       testOnBorrow: false
+       testOnReturn: false
+       poolPreparedStatements: false
+       maxPoolPreparedStatementPerConnectionSize: 20
+       filters: stat,log4j,wall
+       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+       useGlobalDataSourceStat: true
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.liulei.study.xmlbatisboot.domain
+default:
+  dataSource: dataSource1
