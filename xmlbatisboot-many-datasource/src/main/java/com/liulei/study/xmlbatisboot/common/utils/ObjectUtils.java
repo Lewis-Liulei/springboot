@@ -1,4 +1,4 @@
-package common.utils;
+package com.liulei.study.xmlbatisboot.common.utils;
 
 
 

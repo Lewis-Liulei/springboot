@@ -15,8 +15,9 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
-public class DataSourceHelper implements InitializingBean,ApplicationContextAware {
+//@Component
+public class DataSourceHelper /*implements InitializingBean,ApplicationContextAware*/ {
+/*
 
     private ApplicationContext applicationContext;
     private static Map<String,Environment> Environments;
@@ -50,5 +51,6 @@ public class DataSourceHelper implements InitializingBean,ApplicationContextAwar
         //切换Mybatis的Environment
         configuration.setEnvironment(Environments.get(dsName));
     }
+*/
 
 }

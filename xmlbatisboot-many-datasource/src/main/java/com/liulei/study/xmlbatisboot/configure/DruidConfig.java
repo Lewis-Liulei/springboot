@@ -1,17 +1,25 @@
 package com.liulei.study.xmlbatisboot.configure;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
-import common.jdbc.datasource.DynamicDataSource;
-import common.jdbc.datasource.DynamicDataSourceEntry;
+import com.liulei.study.xmlbatisboot.common.jdbc.datasource.DynamicDataSource;
+import com.liulei.study.xmlbatisboot.common.jdbc.datasource.DynamicDataSourceEntry;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
@@ -19,9 +27,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
+@MapperScan("com.liulei.study.xmlbatisboot.dao")
 public class DruidConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(DruidConfig.class);
+
+    @Value("${default.dataSource}")
+    private String DEFAULT_SOURCE;
 
     public DruidConfig() {
     }
@@ -31,18 +43,19 @@ public class DruidConfig {
     @Autowired
     @Qualifier("dataSource2")
     private DataSource dataSource2;
+
     @Bean
     public DynamicDataSourceEntry dynamicDataSourceEntry(){
         DynamicDataSourceEntry dynamicDataSourceEntry = new DynamicDataSourceEntry();
         return dynamicDataSourceEntry;
     }
     @Bean(name = "dynamicDataSource")
-    public DynamicDataSource dynamicDataSource(){
+    public DynamicDataSource dynamicDataSource(DynamicDataSourceEntry dynamicDataSourceEntry){
 
         DynamicDataSource dynamicDataSource = new DynamicDataSource();
         // 默认数据源
         dynamicDataSource.setDefaultTargetDataSource(dataSource1);
-        dynamicDataSource.setDataSourceEntry(dynamicDataSourceEntry());
+        dynamicDataSource.setDataSourceEntry(dynamicDataSourceEntry);
         // 配置多数据源
         Map<Object, Object> dsMap = new HashMap(5);
         dsMap.put("dataSource1", dataSource1);
@@ -51,6 +64,22 @@ public class DruidConfig {
         dynamicDataSource.setTargetDataSources(dsMap);
 
         return dynamicDataSource;
+    }
+
+    @Value("${mybatis.mapper-locations}")
+    private Resource[] mapperLocations;
+    @Value("${mybatis.type-aliases-package}")
+    private String typeAliasesPackage;
+
+
+    @Bean(name = "sqlSessionFactory")
+    public SqlSessionFactory sqlSessionFactory(DynamicDataSource dynamicDataSource) throws Exception {
+        SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+        factoryBean.setDataSource(dynamicDataSource); //
+        factoryBean.setMapperLocations(mapperLocations);
+        factoryBean.setTypeAliasesPackage(typeAliasesPackage);
+        return factoryBean.getObject();
+
     }
 
     @Bean

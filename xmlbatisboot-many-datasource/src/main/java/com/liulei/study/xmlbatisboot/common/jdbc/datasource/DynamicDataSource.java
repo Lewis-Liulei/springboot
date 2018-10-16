@@ -1,4 +1,4 @@
-package common.jdbc.datasource;
+package com.liulei.study.xmlbatisboot.common.jdbc.datasource;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 

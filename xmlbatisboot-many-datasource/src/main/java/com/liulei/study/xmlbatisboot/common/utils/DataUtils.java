@@ -1,4 +1,4 @@
-package common.utils;
+package com.liulei.study.xmlbatisboot.common.utils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

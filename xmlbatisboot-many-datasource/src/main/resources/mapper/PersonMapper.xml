@@ -9,4 +9,9 @@
     <insert id="insertPerson" parameterType="person">
         insert into person values (#{id},#{name},#{address},#{age})
     </insert>
+
+    <select id="queryCount" resultType="java.lang.Long">
+        select count(1) from person
+
+    </select>
 </mapper>

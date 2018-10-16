@@ -1,7 +1,9 @@
 package com.liulei.study.xmlbatisboot.controller;
 
+import com.liulei.study.xmlbatisboot.configure.DS;
 import com.liulei.study.xmlbatisboot.configure.DataSourceHelper;
 import com.liulei.study.xmlbatisboot.domain.Person;
+import com.liulei.study.xmlbatisboot.service.Middle;
 import com.liulei.study.xmlbatisboot.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -16,6 +18,8 @@ public class TestController {
 
     @Autowired
     private PersonService personService;
+    @Autowired
+    private Middle middle;
     @RequestMapping("/getPersonById")
     public <T> T getPersonById(@RequestParam String id){
         return (T)personService.getPersonById(id);
@@ -29,15 +33,20 @@ public class TestController {
             person.setName("adsfdf");
             person.setAddress("adsfdf");
             person.setAge(age);
-            if(age<30)
+           /* if(age<30)
                 //这里做了切换数据源
                 DataSourceHelper.setSqlSessionFactoryEnvironment("dataSource2");
             else
                 //这里做了切换数据源
                 DataSourceHelper.setSqlSessionFactoryEnvironment("dataSource1");
-            personService.insertPerson(person);
+            */
+           personService.insertPerson(person);
 
         }
         return 0;
+    }
+    @RequestMapping("/count")
+    public Long queryCount(){
+        return middle.queryCount();
     }
 }

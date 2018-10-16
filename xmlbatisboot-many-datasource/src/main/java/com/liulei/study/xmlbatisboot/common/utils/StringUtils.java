@@ -1,4 +1,4 @@
-package common.utils;
+package com.liulei.study.xmlbatisboot.common.utils;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;

@@ -1,8 +1,11 @@
 package com.liulei.study.xmlbatisboot.configure;
 
+import com.liulei.study.xmlbatisboot.common.jdbc.datasource.DynamicDataSource;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -14,6 +17,9 @@ import java.lang.reflect.Method;
 public class DynamicDataSourceAspect {
     @Value("${default.dataSource}")
     private String DEFAULT_SOURCE;
+    @Autowired
+    @Qualifier("dynamicDataSource")
+    private DynamicDataSource dynamicDataSource;
     @Before("@annotation(DS)")
     public void beforeSwitchDS(JoinPoint point){
         //获得当前访问的class
@@ -36,7 +42,8 @@ public class DynamicDataSourceAspect {
             e.printStackTrace();
         }
         // 切换数据源
-        DataSourceHelper.setSqlSessionFactoryEnvironment(dataSource);
+//        DataSourceHelper.setSqlSessionFactoryEnvironment(dataSource);
+        this.dynamicDataSource.getDataSourceEntry().set(dataSource);
     }
 
     /*@After("@annotation(DS)")

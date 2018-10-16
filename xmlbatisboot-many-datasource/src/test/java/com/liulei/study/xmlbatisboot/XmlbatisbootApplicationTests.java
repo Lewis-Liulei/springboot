@@ -2,7 +2,7 @@ package com.liulei.study.xmlbatisboot;
 
 import com.liulei.study.xmlbatisboot.domain.Person;
 import com.liulei.study.xmlbatisboot.service.PersonService;
-import common.jdbc.datasource.DynamicDataSource;
+import com.liulei.study.xmlbatisboot.common.jdbc.datasource.DynamicDataSource;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSessionFactory;
