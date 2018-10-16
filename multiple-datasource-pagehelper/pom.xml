@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.liulei.study</groupId>
-    <artifactId>multiple-datasource</artifactId>
+    <artifactId>multiple-datasource-pagehelper</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
